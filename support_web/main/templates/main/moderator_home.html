@@ -1,0 +1,99 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+
+
+{% block main %}
+<div class="moder_name">
+    <h3>Модератор: {{ user.last_name }} {{ user.first_name }}</h3>
+</div>
+
+
+
+
+<style>
+    table {
+        width: 100%;
+        table-layout: fixed; 
+        border-collapse: collapse; 
+    }
+
+    th, td {
+        border: 1px solid black; 
+        padding: 8px; 
+        word-wrap: break-word; 
+        overflow-wrap: break-word; 
+        max-width: 200px; 
+    }
+</style>
+{% if issues %}
+    <div class = "mod_table">
+        <table style="border: 1px solid rgb(0, 0, 0);">
+            <thead>
+                <tr>
+                    <th>Номер заявки</th>
+                    <th>Имя Компьютера</th>
+                    <th>Имя пользователя</th>
+                    <th>Название проблемы</th>
+                    <th>Описание проблемы</th>
+                    <th>Номер телефона</th>
+                    <th>Изображение проблемы</th>
+                    <th>Дата создания</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+        {% for el in issues %}
+        <form method = "POST" action = "{% url 'moder_home' %}">
+            {% csrf_token %}
+            <tr onclick= "confirmIssue('{{ el.id }}', this)" style = "cursor: pointer;" data-issue-id="{{ el.id }}">
+                <td style="border-right: 1px solid rgb(0, 0, 0);"><input type = "text"  name = "issue" id="userName" value = {{ el.id }} readonly ></td>
+                <td style="border-left: 1px solid rgb(0, 0, 0);">{{ el.pc_name }}</td>
+                <td style="border-left: 1px solid rgb(0, 0, 0);">{{ el.user_name }}</td>
+                <td style="border-left: 1px solid rgb(0, 0, 0);">{{ el.issue }}</td>
+                <td style="border-left: 1px solid rgb(0, 0, 0);">{{ el.issue_description }}</td>
+                <td style="border-left: 1px solid rgb(0, 0, 0);">{{ el.phone }}</td>
+                <td style="border-left: 1px solid rgb(0, 0, 0);"><a href = "{{ el.image.url }}"><img src = "{{ el.image.url }}" width="50" height="50" ><a></td>
+                <td style="border-left: 1px solid rgb(0, 0, 0);">{{ el.creation_time }}</td>
+                <td style="border-left: 1px solid rgb(0, 0, 0);">{{ el.status }}</td>
+            </tr>
+            <tr class="details" style="display: none;">
+                <td colspan="9">
+                        <p>Закрыть заявку?</p>
+                        <button type = "submit">Закрыть</button>
+                </td>
+            </tr>
+
+
+
+            <input type="hidden" id="selected-issue-id" name="issue_id">
+        </form>
+        {% endfor %}
+        </table>
+    </div>
+{% else %}
+<div class = "none_issues">
+    <p>У тебя нет открытых заявок, Отдыхай :&rpar;</p>
+</div>
+{% endif %}
+
+<script>
+    function confirmIssue(issueId, row) {
+        console.log("Значение id:")
+        console.log(issueId)
+        document.getElementById('selected-issue-id').value = issueId;
+        var nextRow = row.nextElementSibling;
+        
+        if (nextRow && nextRow.classList.contains('details')) {
+            if (nextRow.style.display === 'none') {
+                nextRow.style.display = 'table-row';
+            } else {
+                nextRow.style.display = 'none';
+            }
+        }
+
+    }
+</script>
+
+
+
+{% endblock %}

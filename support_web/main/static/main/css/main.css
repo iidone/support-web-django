@@ -1,0 +1,529 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #212529;
+    overflow-x: hidden;
+}
+
+body {
+    height: 100%;
+    background-image: linear-gradient(to top, rgba(27, 27, 27, 0.7), rgba(23, 23, 23, 0.7)), var(--bg-image);
+    background-size: cover;
+    background-position: center;
+}
+
+html {
+    height: 100%;
+}
+
+header {
+    display: block;
+    height: auto;
+    width: 100vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    background-color: rgb(230, 230, 230);
+    opacity: 0.5;
+}
+
+form {
+    overflow-y: hidden;
+}
+
+.ticket-form {
+    width: auto;
+    height: auto;
+    padding: 5vh 5vw;
+    text-align: center;
+    margin: 5vh 30vw 5vh 30vw;
+    background-color: rgb(219, 219, 219);
+    font-size: medium;
+    transition: all ease .3s;
+    opacity: 0.95;
+}
+
+.ticket-form:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+@media (max-width: 480px) {
+    .ticket-form {
+        margin: 5vh 5vw 5vh 5vw;
+    }
+}
+
+.problems-list {
+    padding: 1vh 1vw 1vh 1vw;
+    width: auto;
+    height: 5vh;
+    font-size: larger;
+    transition: all ease .3s;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    user-select: none;
+    margin-bottom: 1em;
+    border: none;
+    outline: none;
+}
+
+select:focus, select:hover {
+    outline: none;
+}
+
+@media (max-width: 480px) {
+    .problems-list {
+        font-size: small;
+    };
+}
+
+.problems-list:hover {
+    box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.517);
+}
+
+.problems-list:focus {
+    box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.517);
+}
+
+.input-desc {
+    resize: none;
+    width: auto;
+    height: 20vh;
+    padding: 1em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: none;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: all ease .3s;
+    font-size: large;
+    margin-bottom: 1em;
+    border: none;
+    outline: none;
+}
+
+@media (max-width: 480px) {
+    textarea {
+        font-size: small;
+    }
+}
+
+textarea:hover {
+    box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.517);
+}
+
+textarea:focus {
+    box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.517);
+}
+
+h1 {
+    text-align: center;
+}   
+
+.logo h1 {
+    font-size: larger;
+    user-select: none;
+    margin-right: 5vw;
+    margin-left: 5vw;
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: small;
+    }
+}
+
+
+form h1 {
+    user-select: none;
+}
+
+#fileInput {
+    width: auto;
+    height: auto;
+    background-color: #212529;
+    overflow-y: hidden;
+    transition: all ease .3s;
+    border: none;
+    outline: none;
+}
+
+
+#output {
+    margin: 0 10vw 0 10vw;
+    width: auto;
+    height: 5vh;
+    background-color: #212529;
+    cursor: pointer;
+    transition: all ease .3s;
+    outline: none;
+    color: transparent;
+    overflow-y: hidden;
+    border: none;
+    border-radius: 1em 1em 1em 1em;
+    outline: none;
+}
+
+#fileCount {
+    user-select: none; /* Для современных браузеров */
+    -webkit-user-select: none; /* Для Safari */
+    -moz-user-select: none; /* Для Firefox */
+    -ms-user-select: none; /* Для IE */
+}
+
+#output:hover {
+    background-color: #212529d0;
+    outline: none;
+    box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.517);
+}
+
+#output:focus {
+    outline: none;
+}
+
+.icon-custom {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    font-size: 2em;
+}
+
+.submit-btn {
+    padding: 2vh 2vw 2vh 2vw;
+    height: auto;
+    width: auto;
+    background-color: #212529;
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    color: white;
+    border-radius: 1em 1em 1em 1em;
+    transition: all ease .3s;
+    overflow-y: hidden;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 1em;
+}
+
+.submit-btn:hover {
+    background-color: #212529d0;
+    box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.517);
+}
+
+br {
+    user-select: none;
+    z-index: -1;
+}
+
+#isSuccessful {
+    color: #00a220;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    visibility: hidden;
+    opacity: 1;
+    user-select: none;
+    transition: all 0.5s ease;
+}
+
+#isSuccessfulAppoint {
+    color: #00a220;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    visibility: hidden;
+    opacity: 1;
+    user-select: none;
+    transition: all 0.5s ease;
+}
+
+#userName {
+    height: auto;
+    width: auto;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: larger;
+    user-select: none;
+}
+
+#username {
+    display: block;
+    height: auto;
+    width: auto;
+    margin: auto;
+    padding: 1vh 1vw 1vh 1vw;
+    background-color: white;
+    justify-content: center;
+    border: none;
+    outline: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: medium;
+    user-select: none;
+}
+
+#password {
+    display: block;
+    height: auto;
+    width: auto;
+    margin: auto;
+    padding: 1vh 1vw 1vh 1vw;
+    background-color: white;
+    justify-content: center;
+    border: none;
+    outline: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: medium;
+    user-select: none;
+}
+
+#signIn {
+    display: block;
+    margin: 5vh auto 5vh auto;
+    padding: 2vh 2vw 2vh 2vw;
+    height: auto;
+    width: auto;
+    background-color: #212529;
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    justify-content: center;
+    color: white;
+    border-radius: 1em 1em 1em 1em;
+    transition: all ease .3s;
+    overflow-y: hidden;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+#signIn:hover {
+    background-color: #212529d0;
+    box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.517);
+}
+
+.horizCorrector {
+    justify-content: center;
+    text-align: center;
+    display: block;
+}
+
+.default {
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    color: #212529;
+    text-align: center;
+    margin: auto;
+}
+
+.success {
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    color: #00a220;
+    text-align: center;
+    margin: auto;
+}
+
+.error {
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    color: #ff0000;
+    text-align: center;
+    margin: auto;
+}
+
+.signFormCorrector {
+    margin-top: 12vh;
+    margin-bottom: 12vh;
+    height: 40vh;
+}
+
+footer {
+    display: block;
+    height: 30vh;
+    width: 100vw;
+    background-color: #212529;
+    opacity: 0.5;
+}
+
+.my_issues {
+    text-align: center;
+    margin: 1vh 1vw 1vh 1vw;
+}
+
+
+.admin {
+    margin: 1vh 2vw 1vh 1vw;
+    text-align: center;
+    float: right;
+    height: auto;
+    visibility: visible;
+}
+
+
+.adminButton {
+    padding: 0.5vh 0.5vw 0.5vh 0.5vw;
+    margin: 0vh 1vw 1vh 1vw;
+    width: auto;
+    min-width: calc(100vw - 86vw);
+    user-select: none;
+}
+
+@media (max-width: 480px) {
+    .adminButton {
+        width: calc(100vw - 30vw);
+    }
+
+    .admin h1 {
+        font-size: small;
+    }
+}
+
+.admin h1 {
+    font-size: medium;
+}
+
+.listCorrector {
+    min-width: 50vw;
+}
+
+@media (max-width: 480px) {
+    .listCorrector {
+        min-width: 80vw;
+    }
+
+
+
+    .listCorrector:hover, .listCorrector:focus {
+        box-shadow: none;
+    }
+}
+
+.controlFormCorrector { 
+    margin: 12vh 5vw 12vh 5vw;
+    height: auto;
+    min-width: 50vw;
+    text-align: center;
+}
+
+#appoint {
+    display: block;
+    margin: 5vh auto 5vh auto;
+    padding: 2vh 2vw 2vh 2vw;
+    height: auto;
+    width: auto;
+    background-color: #212529;
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    justify-content: center;
+    color: white;
+    border-radius: 1em 1em 1em 1em;
+    transition: all ease .3s;
+    overflow-y: hidden;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+#appoint:hover {
+    background-color: #212529d0;
+    box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.517);
+}
+
+td {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 1em;
+    width: 80em; 
+    overflow-wrap: break-word; 
+}
+
+
+th {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    border-bottom: 0.5em solid rgb(0, 0, 0);
+
+
+
+}
+
+
+table {
+    background-color: gray;
+    opacity: 0.7;
+}
+
+.details {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(46, 46, 46);
+    opacity: 0.5;
+}
+
+
+h3 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+}
+
+h4 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+}
+
+.details p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(255, 255, 255);
+}
+
+.none_issues {
+    text-align: center;
+}
+
+.none_issues p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: large;
+    user-select: none;
+}   
+
+.moder_name h3 {
+    margin: 2vh 2vw 2vh 2vw;
+    color: rgb(204, 204, 204);
+    user-select: none;
+    transition: all ease .3s;
+    width: auto;
+    height: auto;
+}
+
+.moder_name h3:hover {
+    color: white;
+}
+
+.input-field {
+    border: none;
+    width: auto;
+    height: auto;
+    font-size: large;
+    margin: 2vh 2vw 2vh 2vw;
+    padding: 1vh 1vw 1vh 1vw;
+    transition: all ease .3s;
+}
+
+.input-field:hover {
+    box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.517);
+}

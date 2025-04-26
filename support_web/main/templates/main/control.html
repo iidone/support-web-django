@@ -1,0 +1,47 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+{% block main %}
+<main>
+    <div class="ticket-form controlFormCorrector">
+        <form method="POST" action="{% url 'control' %}" id="form2">
+            {% csrf_token %}
+            <div>
+                <h1>
+                    Распределение заявок по модераторам
+                </h1>
+                <br>
+                <select class="problems-list listCorrector" name="issue" id="Issues" required>
+                    <option value="" disabled selected hidden>Выберите заявку</option>
+                    {% for issue in issues %}
+                        <option value="{{ issue.id }}">№{{ issue.id }}: {{ issue.issue }} - {{ issue.full_name }}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div>
+                <select class="problems-list listCorrector" name="moderator" id="Moderators" required>
+                    <option value="" disabled selected hidden>Выберите модератора</option>
+                    {% for moderator in moderators %}
+                        <option value="{{ moderator.first_name }}">{{ moderator.first_name }} {{moderator.last_name}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="horizCorrector">
+                <button id="appoint" type="submit">Назначить</button>
+            </div>
+            <div>
+                {% if success2 %}
+                    <h2 id="isSuccessfulAppoint" style="visibility: visible;">
+                        Заявка не была назначена.
+                    </h2>
+                {% else %}
+                    <h2 id="isSuccessfulAppoint" style="visibility: hidden;">
+                        Заявка {{ issue.id }} {{ issue.issue }} была назначена модератору{{ moderator.full_name }}.
+                    </h2>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

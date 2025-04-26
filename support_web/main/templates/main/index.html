@@ -1,0 +1,150 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+{% block main %}
+
+<main>
+    <div class="ticket-form">
+        <form enctype="multipart/form-data" id="form1" action="{% url 'index' %}" method="POST">
+            {% csrf_token %}
+            <div>
+                <h1>Выберите проблему:</h1>
+                <br>
+                <select class="problems-list" name="problem" id="troublesList" required>
+                    <option value="Выберите проблему" disabled selected hidden required>Выберите проблему</option>
+                    
+                    {% for problem in problems %}
+                        <option value="{{ problem.problem }}">{{ problem.problem }}</option>
+                    {% endfor %}
+            
+                </select>
+            </div>
+            <div>
+                <h1>Выберите подпроблему:</h1>
+                <br>
+                <select class="problems-list" name="subproblem" id="subproblemSelect" required>
+                    <option value="" disabled selected hidden required>Выберите проблему</option>
+                    {% for subproblem in subproblems %}
+                        <option value="{{ subproblem.problem }}"> {{ subproblem.problem }}</option>
+                    {% endfor %}
+                </select>
+                <script>
+                    document.getElementById('troublesList').addEventListener('change', function() {
+                        var selectedProblemId = this.value;
+                        var subproblemSelect = document.getElementById('subproblemSelect');
+                
+                        subproblemSelect.innerHTML = '<option value="" disabled selected hidden>Выберите подпроблему</option>';
+                        
+                        {% for problem in problems %}
+                            if (selectedProblemId == "{{ problem.problem }}") {
+                                {% for subproblem in problem.subproblems.all %}
+                                    var option = document.createElement('option');
+                                    option.value = "{{ subproblem.problem }}";
+                                    option.text = "{{ subproblem.problem }}";
+                                    subproblemSelect.appendChild(option);
+                                {% endfor %}
+                            }
+                        {% endfor %}
+                    });
+                </script>
+            </div>
+
+            <div>
+                <h1>Опишите проблему:</h1>
+                <br>
+                <textarea class="input-desc" name="description" id="problem-desc" cols="30" rows="10" maxlength="1080"
+                placeholder="Опишите вашу проблему в подробностях" required></textarea>
+            </div>
+            <div>
+                <h1>Прикрепите файл:</h1>
+                <br>
+                <input type="file" name="file" id="fileInput" accept="image/*,video/*" multiple style="display: none;" required>
+                <div id="output" contenteditable="true" placeholder="">
+                    <i class="bi bi-box-arrow-in-down icon-custom"></i>
+                </div>
+                <div id="fileCount" style="margin-top: 10px; font-weight: bold; font-family: Verdana, Geneva, Tahoma, sans-serif;">Выбрано файлов: 0</div>
+                <script>
+                    const output = document.getElementById('output');
+                    const fileInput = document.getElementById('fileInput');
+                    const fileCountDisplay = document.getElementById('fileCount');
+                    let fileCount = 0;
+                    let images = []; 
+                    document.addEventListener('paste', (event) => {
+                        const items = event.clipboardData.items;
+                        for (let i = 0; i < items.length; i++) {
+                            const item = items[i];
+                            if (item.type.startsWith('image/')) {
+                                const file = item.getAsFile();
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    images.push(e.target.result);
+                                    fileCount++;
+                                    updateFileCount();
+                                }; 
+                                reader.readAsDataURL(file);
+                            }
+                        }
+                    });
+                    output.addEventListener('click', () => {
+                        fileInput.click();
+                    });
+                    fileInput.addEventListener('change', (event) => {
+                        const files = event.target.files;
+                        fileCount += files.length;
+                        updateFileCount();
+                    });
+                    function updateFileCount() {
+                        fileCountDisplay.textContent = `Выбрано файлов: ${fileCount}`;
+                        fileCountDisplay.style.userSelect = 'none';
+                        fileCountDisplay.classList.add('pulse');
+                        setTimeout(() => {
+                            fileCountDisplay.classList.remove('pulse');
+                        }, 500);
+                    }
+                </script>
+                
+            <div>
+                <h1>
+                    Ваш номер телефона:
+                </h1>
+                <input class="input-field" 
+                    id="phone" 
+                    name="phone" 
+                    type="tel" 
+                    placeholder="+7(___)___-__-__" 
+                    required>
+            </div>
+
+
+            </div>
+            <br>
+            <div>
+                <button class="submit-btn" type="submit">Отправить</button>
+            </div>
+            <br>
+            <div>
+                {% if success %}
+                    <h2 id="isSuccessful" style="visibility: visible;">
+                        Заявка успешно отправлена!
+                    </h2>
+                {% else %}
+                    <h2 id="isSuccessful" style="visibility: hidden;">
+                        Заявка успешно отправлена!
+                    </h2>
+                {% endif %}
+            </div>
+        </form>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var element = document.getElementById('phone');
+                var maskOptions = {
+                    mask: '+7(000)000-00-00',
+                    lazy: false
+                };
+                var mask = new IMask(element, maskOptions);
+            });
+        </script>
+    </div>
+</main>
+
+{% endblock %}
